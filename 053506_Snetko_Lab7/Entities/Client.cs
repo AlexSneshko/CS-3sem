@@ -1,18 +1,17 @@
-﻿using _053506_Snetko_Lab5.Collections;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace _053506_Snetko_Lab5.Entities
+namespace _053506_Snetko_Lab7.Entities
 {
     public class Client
     { 
         public string Name { get; }
-        private MyCustomCollection<Utility> utilities;
+        private List<Utility> utilities;
         private Print utilityPurchases;
         public Print UtilityPurchases { get => (() => Console.WriteLine($"Name :{Name}")) + utilityPurchases + (() => Console.WriteLine()); }
 
-        public Client(string name) => (Name, utilities) = (name, new MyCustomCollection<Utility>());
+        public Client(string name) => (Name, utilities) = (name, new List<Utility>());
 
         public void AddUtility(Utility newUtility)
         {
@@ -35,11 +34,11 @@ namespace _053506_Snetko_Lab5.Entities
                 }        
         }
 
-        public double GetBill(double[] tarifs)
+        public double GetBill(Dictionary<Utilities, double> tarifs)
         {
             double sum = 0;
             for (int i = 0; i < utilities.Count; i++)
-                sum += utilities[i].Consumption * tarifs[(int)utilities[i].Name];
+                sum += utilities[i].Consumption * tarifs[(Utilities)i];
 
             return sum;
         }
@@ -48,10 +47,9 @@ namespace _053506_Snetko_Lab5.Entities
 
         public override bool Equals(object obj)
         {
-            if(obj is Client client){
+            if(obj is Client client)
                 return Name.Equals(client.Name);
-            }
-
+            
             return false;
         }
     }  

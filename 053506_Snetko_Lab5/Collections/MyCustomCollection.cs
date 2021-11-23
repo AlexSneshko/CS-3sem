@@ -1,4 +1,5 @@
-﻿using _053506_Snetko_Lab5.Interfaces;
+﻿using _053506_Snetko_Lab5.Entities;
+using _053506_Snetko_Lab5.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,7 +33,7 @@ namespace _053506_Snetko_Lab5.Collections
         {
             get
             {
-                if (index > Count) throw new IndexOutOfRangeException();
+                if (index > Count || index < 0) throw new IndexOutOfRangeException();
 
                 Node temp = head;
                 for (int i = 0; i < index; i++)
@@ -41,7 +42,7 @@ namespace _053506_Snetko_Lab5.Collections
             }
             set
             {
-                if (index > Count) throw new IndexOutOfRangeException();
+                if (index > Count || index < 0) throw new IndexOutOfRangeException();
 
                 Node temp = head;
                 for (int i = 0; i < index; i++)
@@ -76,20 +77,14 @@ namespace _053506_Snetko_Lab5.Collections
 
         public void Remove(T item)
         {
-            try
-            {
-                Node temp = head;
-                while (temp.pNext.data != item)
-                    temp = temp.pNext;
+            if (!Contains(item)) throw new NoItemsException(item.ToString());
 
-                temp.pNext = temp.pNext.pNext;
-                _count--;
-            }
-            catch (NullReferenceException)
-            {
-                Console.WriteLine("No such element");
-            }
-                
+            Node temp = head;
+            while (temp.pNext.data.Equals(item))
+                temp = temp.pNext;
+
+            temp.pNext = temp.pNext.pNext;
+            _count--;
         }
 
         public T RemoveCurrent()

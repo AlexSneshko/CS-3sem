@@ -1,18 +1,19 @@
-﻿using _053506_Snetko_Lab5.Collections;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace _053506_Snetko_Lab5.Entities
+namespace _053506_Snetko_Lab7.Entities
 {
     public class HAU
     {
-        private MyCustomCollection<Client> clients;
-        private double[] tarifs;
+        private List<Client> clients;
+        private Dictionary<Utilities, double> tarifs;
+        //private double[] tarifs;
         public Journal journal;
         public Journal utilitiesJournal;
 
-        public HAU() => (clients, tarifs, journal, utilitiesJournal) = (new MyCustomCollection<Client>(), new double[(int)Utilities.All], new Journal("Clients and tarifs journal"), new Journal("Utilities journal"));
+        public HAU() => (clients, tarifs, journal, utilitiesJournal) = (new List<Client>(), new Dictionary<Utilities, double>((int)Utilities.All), new Journal("Clients and tarifs journal"), new Journal("Utilities journal"));
 
         public void AddClient(Client newClient)
         {
@@ -36,23 +37,26 @@ namespace _053506_Snetko_Lab5.Entities
 
         public void SetTarif(Utilities utility, int price)
         {
-            tarifs[(int)utility] = price;
+            tarifs[utility] = price;
             journal.Changes += () => Console.WriteLine($"Tarif {utility} has been changed to price: {price}");
         }
 
-        public double GetTarif(Utilities utility) => tarifs[(int)utility];
+        public double GetTarif(Utilities utility) => tarifs[utility];
 
         public void SetAllTarifs(double[] newTarifs)
         {
-            Array.Copy(newTarifs, tarifs, tarifs.Length);
+            tarifs.Clear();
+            for(int i = 0; i < (int)Utilities.All; i++)
+                tarifs.Add((Utilities)i, newTarifs[i]);
+            
             journal.Changes += () => Console.WriteLine($"All tarifs have been initialized");
         }
             
         public void GetAllTarifs()
         {
             Console.WriteLine(new string('-', 30));
-            for (int i = 0; i < tarifs.Length; i++)
-                Console.WriteLine("{0} tarif: {1}", (Utilities)i, tarifs[i]);
+            for (int i = 0; i < tarifs.Count; i++)
+                Console.WriteLine("{0} tarif: {1}", (Utilities)i, tarifs[(Utilities)i]);
             Console.WriteLine(new string('-', 30));
         }
 
@@ -61,7 +65,7 @@ namespace _053506_Snetko_Lab5.Entities
             for (int i = 0; i < clients.Count; i++)
                 if(clients[i].Name == name)
                 {
-                    Console.WriteLine("{0} bill is {1}$", name, clients[i].GetBill(tarifs));
+                    Console.WriteLine("{0}'s bill is {1}$", name, clients[i].GetBill(tarifs));
                     break;
                 }  
         }
@@ -82,5 +86,16 @@ namespace _053506_Snetko_Lab5.Entities
         }
 
         public void ClientUsingUtility(string name, Utilities utility, int amount) => GetClient(name).UsingUtility(utility, amount); 
+
+        public IEnumerable<Utilities> GetSortedUtilitiesList() => tarifs.OrderBy(_ => _.Value).Select(_ => _.Key);
+
+        public double TotalCostOfUtilitiesSold() => clients.Select(_ => _.GetBill(tarifs)).Sum();
+
+        public Client GetRichestClient() => clients.OrderByDescending(_ => _.GetBill(tarifs)).First();
+
+        //public int GetClentsAmountMoreMedieum(double range) => clients.Select(_ => _.GetBill(tarifs) > range).Count();
+
+        public int GetClentsAmountMoreMedieum(double range) => (int)clients.Select(_=>_.GetBill(tarifs)).Aggregate((a, b) => Convert.ToDouble(a > range) + Convert.ToDouble(b > range));
+
     }
 }

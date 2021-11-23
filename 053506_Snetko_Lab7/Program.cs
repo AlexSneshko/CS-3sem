@@ -1,9 +1,8 @@
-﻿using _053506_Snetko_Lab5.Collections;
-using _053506_Snetko_Lab5.Entities;
+﻿using _053506_Snetko_Lab7.Entities;
 using System;
 using System.Collections.Generic;
 
-namespace _053506_Snetko_Lab5
+namespace _053506_Snetko_Lab7
 {
     class Program
     {
@@ -33,27 +32,10 @@ namespace _053506_Snetko_Lab5
             hau.ClientUsingUtility("Alex", Utilities.Elevator, 40);
             hau.ClientUsingUtility("Alex", Utilities.Gas, 40);
 
-            
-
+            hau.GetAllTarifs();
+            hau.GetClientsBill("Vika");
             hau.journal.GetAllChanges();
             hau.utilitiesJournal.GetAllChanges();
         }
     }
 }
-/*
-             hau.GetClient("Vika").AddUtility(new Utility(Utilities.Water));
-            hau.GetClient("Vika").AddUtility(new Utility(Utilities.Electricity));
-            hau.GetClient("Alex").AddUtility(new Utility(Utilities.Elevator));
-            hau.GetClient("Alex").AddUtility(new Utility(Utilities.Gas));
-
-            hau.GetClient("Vika").UsingUtility(Utilities.Water, 40);
-            hau.GetClient("Vika").UsingUtility(Utilities.Electricity, 150);
-            hau.GetClient("Alex").UsingUtility(Utilities.Elevator, 40);
-            hau.GetClient("Alex").UsingUtility(Utilities.Gas, 150);
-
-            Print GetPeopleUtilities = hau.GetClient("Alex").UtilityPurchases;
-            GetPeopleUtilities += hau.GetClient("Dima").UtilityPurchases;
-            GetPeopleUtilities += hau.GetClient("Petya").UtilityPurchases;
-            GetPeopleUtilities += hau.GetClient("Vasya").UtilityPurchases;
-            GetPeopleUtilities += hau.GetClient("Vika").UtilityPurchases;
-            GetPeopleUtilities += hau.GetClient("Katya").UtilityPurchases;*/
