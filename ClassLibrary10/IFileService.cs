@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace _053506_Snetko_Lab10
+namespace ClassLibrary10
 {
     interface IFileService<T> where T : class
     {
