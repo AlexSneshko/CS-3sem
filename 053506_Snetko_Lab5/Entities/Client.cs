@@ -9,15 +9,15 @@ namespace _053506_Snetko_Lab5.Entities
     { 
         public string Name { get; }
         private MyCustomCollection<Utility> utilities;
-        private Print utilityPurchases;
-        public Print UtilityPurchases { get => (() => Console.WriteLine($"Name :{Name}")) + utilityPurchases + (() => Console.WriteLine()); }
+        public delegate void Manager(string message);
+        public event Manager Notify;
 
         public Client(string name) => (Name, utilities) = (name, new MyCustomCollection<Utility>());
 
         public void AddUtility(Utility newUtility)
         {
             if (!utilities.Contains(newUtility)) utilities.Add(newUtility);
-            utilityPurchases += () => Console.WriteLine($"Added {newUtility.Name}");
+            Notify?.Invoke($"{Name} Added {newUtility.Name}");
         }
 
         public void RemoveUtility(Utility utility)

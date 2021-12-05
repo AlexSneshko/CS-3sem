@@ -9,15 +9,15 @@ namespace _053506_Snetko_Lab5.Entities
     {
         private MyCustomCollection<Client> clients;
         private double[] tarifs;
-        public Journal journal;
-        public Journal utilitiesJournal;
+        public delegate void Manager(string message);
+        public event Manager Notify;
 
-        public HAU() => (clients, tarifs, journal, utilitiesJournal) = (new MyCustomCollection<Client>(), new double[(int)Utilities.All], new Journal("Clients and tarifs journal"), new Journal("Utilities journal"));
+        public HAU() => (clients, tarifs) = (new MyCustomCollection<Client>(), new double[(int)Utilities.All]);
 
         public void AddClient(Client newClient)
         {
             clients.Add(newClient);
-            journal.Changes += () => Console.WriteLine($"Client {newClient} has been added"); 
+            Notify?.Invoke($"Client {newClient} has been added"); 
         }
 
         public void RemoveClient(Client client)
@@ -26,7 +26,7 @@ namespace _053506_Snetko_Lab5.Entities
             {
                 var tempClient = client;
                 clients.Remove(client);
-                journal.Changes += () => Console.WriteLine($"Client {tempClient} has been deleted");
+                Notify?.Invoke($"Client {tempClient} has been deleted");
             }
             catch(NoItemsException e)
             {
@@ -37,7 +37,7 @@ namespace _053506_Snetko_Lab5.Entities
         public void SetTarif(Utilities utility, int price)
         {
             tarifs[(int)utility] = price;
-            journal.Changes += () => Console.WriteLine($"Tarif {utility} has been changed to price: {price}");
+            Notify?.Invoke($"Tarif {utility} has been changed to price: {price}");
         }
 
         public double GetTarif(Utilities utility) => tarifs[(int)utility];
@@ -45,7 +45,7 @@ namespace _053506_Snetko_Lab5.Entities
         public void SetAllTarifs(double[] newTarifs)
         {
             Array.Copy(newTarifs, tarifs, tarifs.Length);
-            journal.Changes += () => Console.WriteLine($"All tarifs have been initialized");
+            Notify?.Invoke($"All tarifs have been initialized");
         }
             
         public void GetAllTarifs()
@@ -78,7 +78,7 @@ namespace _053506_Snetko_Lab5.Entities
         public void AddUtilityToClient(string name, Utilities utility)
         {
             GetClient(name).AddUtility(new Utility(utility));
-            utilitiesJournal.Changes += () => Console.WriteLine($"{name} bought {utility} utility"); 
+            Notify?.Invoke($"{name} bought {utility} utility"); 
         }
 
         public void ClientUsingUtility(string name, Utilities utility, int amount) => GetClient(name).UsingUtility(utility, amount); 

@@ -32,10 +32,15 @@ namespace _053506_Snetko_Lab7
             hau.ClientUsingUtility("Alex", Utilities.Elevator, 40);
             hau.ClientUsingUtility("Alex", Utilities.Gas, 40);
 
-            hau.GetAllTarifs();
-            hau.GetClientsBill("Vika");
-            hau.journal.GetAllChanges();
-            hau.utilitiesJournal.GetAllChanges();
+            //hau.GetAllTarifs();
+            //hau.GetClientsBill("Vika");
+            //hau.journal.GetAllChanges();
+            //hau.utilitiesJournal.GetAllChanges();
+
+            var sortedUtilities = hau.GetSortedUtilitiesList();
+            var total = hau.TotalCostOfUtilitiesSold();
+            var rich = hau.GetRichestClient();
+            var moreMedian = hau.GetClentsAmountMoreRange(56);
         }
     }
 }

@@ -4,20 +4,20 @@ using System.Text;
 
 namespace _053506_Snetko_Lab5.Entities
 {
-    public delegate void Print();
-
     public class Journal
     {
-        public string Name { get; }
-        public event Print Changes;
+        private List<string> changes;
 
-        public Journal(string name) => Name = name;
+        public Journal() => changes = new List<string>();
+
+        public void Add(string message) => changes.Add(message);
 
         public void GetAllChanges()
         {
             var sticks = new string('-', 15);
-            Console.WriteLine($"{sticks}{Name}{sticks}");
-            Changes();
+            Console.WriteLine($"{sticks}Journal{sticks}");
+            foreach (var change in changes)
+                Console.WriteLine(change);
             Console.WriteLine($"{sticks}{sticks}");
         }
     }

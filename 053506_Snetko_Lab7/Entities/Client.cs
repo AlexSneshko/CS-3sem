@@ -34,6 +34,8 @@ namespace _053506_Snetko_Lab7.Entities
                 }        
         }
 
+        public double GetUtilityAmount(Dictionary<Utilities, double> tarifs, Utilities utility) => utilities[(int)utility].Consumption * tarifs[utility];
+
         public double GetBill(Dictionary<Utilities, double> tarifs)
         {
             double sum = 0;
