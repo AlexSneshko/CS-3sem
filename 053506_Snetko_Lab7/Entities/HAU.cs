@@ -95,15 +95,8 @@ namespace _053506_Snetko_Lab7.Entities
 
         public int GetClentsAmountMoreRange(double range) => clients.Select(_ => _.GetBill(tarifs) > range).Count();
 
-        //public int GetClentsAmountMoreMedieum(double range) => (int)clients.Select(_=>_.GetBill(tarifs)).Aggregate((a, b) => Convert.ToDouble(a > range) + Convert.ToDouble(b > range));
+ 
 
-        public Dictionary<Utilities, int> GetAllClientUtilities(string name)
-        {
-            var client = GetClient(name);
-            var res = new Dictionary<Utilities, int>();
-
-            //foreach(var )
-            return new Dictionary<Utilities, int>();
-        }
     }
 }
+//public int GetClentsAmountMoreMedieum(double range) => (int)clients.Select(_=>_.GetBill(tarifs)).Aggregate((a, b) => Convert.ToDouble(a > range) + Convert.ToDouble(b > range));

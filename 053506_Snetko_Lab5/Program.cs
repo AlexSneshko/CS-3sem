@@ -19,7 +19,7 @@ namespace _053506_Snetko_Lab5
             hau.AddClient(new Client("Vasya"));
             hau.AddClient(new Client("Vika"));
             hau.AddClient(new Client("Katya"));
-            hau.RemoveClient(new Client("Oxxxymiron"));
+            hau.RemoveClient(new Client("Nikolay"));
             hau.AddClient(new Client("Zenya"));
 
             var tarifs = new double[(int)Utilities.All] { 1.2, 0.3, 4.3, 5.7, 9.6, 0.8, 4.5, 8, 7.5, 0.6, 2.3, 2.7 };
@@ -40,20 +40,3 @@ namespace _053506_Snetko_Lab5
         }
     }
 }
-/*
-             hau.GetClient("Vika").AddUtility(new Utility(Utilities.Water));
-            hau.GetClient("Vika").AddUtility(new Utility(Utilities.Electricity));
-            hau.GetClient("Alex").AddUtility(new Utility(Utilities.Elevator));
-            hau.GetClient("Alex").AddUtility(new Utility(Utilities.Gas));
-
-            hau.GetClient("Vika").UsingUtility(Utilities.Water, 40);
-            hau.GetClient("Vika").UsingUtility(Utilities.Electricity, 150);
-            hau.GetClient("Alex").UsingUtility(Utilities.Elevator, 40);
-            hau.GetClient("Alex").UsingUtility(Utilities.Gas, 150);
-
-            Print GetPeopleUtilities = hau.GetClient("Alex").UtilityPurchases;
-            GetPeopleUtilities += hau.GetClient("Dima").UtilityPurchases;
-            GetPeopleUtilities += hau.GetClient("Petya").UtilityPurchases;
-            GetPeopleUtilities += hau.GetClient("Vasya").UtilityPurchases;
-            GetPeopleUtilities += hau.GetClient("Vika").UtilityPurchases;
-            GetPeopleUtilities += hau.GetClient("Katya").UtilityPurchases;*/

@@ -16,7 +16,6 @@ namespace _053506_Snetko_Lab7
             hau.AddClient(new Client("Vasya"));
             hau.AddClient(new Client("Vika"));
             hau.AddClient(new Client("Katya"));
-            //hau.RemoveClient(new Client("Dima"));
             hau.AddClient(new Client("Zenya"));
 
             var tarifs = new double[(int)Utilities.All] { 1.2, 0.3, 4.3, 5.7, 9.6, 0.8, 4.5, 8, 7.5, 0.6, 2.3, 2.7 };
@@ -31,11 +30,6 @@ namespace _053506_Snetko_Lab7
             hau.ClientUsingUtility("Vika", Utilities.Electricity, 40);
             hau.ClientUsingUtility("Alex", Utilities.Elevator, 40);
             hau.ClientUsingUtility("Alex", Utilities.Gas, 40);
-
-            //hau.GetAllTarifs();
-            //hau.GetClientsBill("Vika");
-            //hau.journal.GetAllChanges();
-            //hau.utilitiesJournal.GetAllChanges();
 
             var sortedUtilities = hau.GetSortedUtilitiesList();
             var total = hau.TotalCostOfUtilitiesSold();
